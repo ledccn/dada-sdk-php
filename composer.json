@@ -1,0 +1,30 @@
+{
+  "name": "ledc/dada",
+  "description": "达达秒送开放平台SDK，首个版本发布于2025年8月1日",
+  "type": "library",
+  "license": "MIT",
+  "support": {
+    "email": "367013672@qq.com",
+    "issues": "https://github.com/ledccn/dada-sdk-php/issues",
+    "forum": "https://www.iyuu.cn",
+    "wiki": "https://www.iyuu.cn",
+    "source": "https://github.com/ledccn/dada-sdk-php"
+  },
+  "authors": [
+    {
+      "name": "david",
+      "email": "367013672@qq.com",
+      "homepage": "https://www.iyuu.cn",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "ledc/support-sdk": "^7.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ledc\\DaDa\\": "src/"
+    }
+  }
+}
