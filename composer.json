@@ -20,7 +20,9 @@
   ],
   "require": {
     "php": ">=7.4",
-    "ledc/support-sdk": "^7.4"
+    "ledc/support-sdk": "^7.4",
+    "ext-curl": "*",
+    "ext-json": "*"
   },
   "autoload": {
     "psr-4": {

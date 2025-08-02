@@ -4,7 +4,6 @@ namespace Ledc\DaDa;
 
 use Ledc\DaDa\Clients\Account;
 use Ledc\DaDa\Clients\Merchant;
-use Ledc\DaDa\Clients\Oauth;
 use Ledc\DaDa\Clients\Order;
 
 /**
