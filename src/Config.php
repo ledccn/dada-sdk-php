@@ -2,7 +2,9 @@
 
 namespace Ledc\DaDa;
 
+use InvalidArgumentException;
 use JsonSerializable;
+use Ledc\DaDa\Parameters\Notify;
 
 /**
  * 达达秒送配置类
@@ -24,7 +26,8 @@ class Config implements JsonSerializable
     public const REQUIRE_KEYS = [
         'appKey',
         'appSecret',
-        'sourceId;',
+        'sourceId',
+        'callback',
         'sourceIdTest',
         'shopNoTest',
         'debug',
@@ -51,6 +54,11 @@ class Config implements JsonSerializable
      * 应用信息：source_id 商户编号
      */
     protected string $sourceId;
+    /**
+     * 配送订单状态变更后的回调地址
+     * @var string
+     */
+    protected string $callback;
     /**
      * 应用信息：source_id 商户编号（测试环境）
      * @var string
@@ -209,6 +217,27 @@ class Config implements JsonSerializable
         $plaintext = $appSecret . $original . $appSecret;
         // 第四步：对签名字符串计算MD5，生成32位的字符串，转换为大写
         return strtoupper(md5($plaintext));
+    }
+
+    /**
+     * 验证配送单订单状态回调的报文
+     * @param Notify $notify
+     * @return bool
+     */
+    final public static function verifySignature(Notify $notify): bool
+    {
+        // 第一步：将参与签名的字段的值进行升序排列
+        $fields = [$notify->getClientId(), $notify->getOrderId(), $notify->getUpdateTime()];
+        sort($fields);
+        // 第二步：将排序过后的参数，进行字符串拼接
+        $plaintext = implode('', $fields);
+        // 第三步：对第二步连接的字符串计算md5哈希值
+        $md5 = md5($plaintext);
+        // 可防止时序攻击的字符串比较
+        if (!hash_equals($md5, $notify->getSignature())) {
+            throw new InvalidArgumentException('签名无效');
+        }
+        return true;
     }
 
     /**
