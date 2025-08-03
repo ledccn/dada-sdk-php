@@ -23,7 +23,7 @@ class CallbackFactory
     {
         $messageType = $payload['messageType'] ?? null;
         $messageBody = $payload['messageBody'] ?? null;
-        $order_id = $messageBody['order_id'] ?? null;
+        $order_id = $payload['order_id'] ?? null;
         // 是否存在消息类型&消息体
         if ($order_id && (is_null($messageType) || is_null($messageBody))) {
             // 订单状态回调报文
@@ -36,7 +36,7 @@ class CallbackFactory
                 return new NotifyCourier($payload);
             case NotifyMessageTypeEnums::STORE_STATUS_CHANGE:
                 // 门店信息变更通知
-                return new NotifyShopUpdated($messageBody);
+                return new NotifyShopUpdated($payload);
             default:
                 return new NotifyOther($payload);
         }
