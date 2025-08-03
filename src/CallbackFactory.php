@@ -30,7 +30,7 @@ class CallbackFactory
             return new Notify($payload);
         }
 
-        switch ($messageType) {
+        switch ((int)$messageType) {
             case NotifyMessageTypeEnums::COURIER_CANCEL:
                 // 配送员取消订单
                 return new NotifyCourier($payload);
