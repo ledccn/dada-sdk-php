@@ -19,6 +19,19 @@ class Config implements JsonSerializable
      */
     public const CONFIG_PREFIX = 'dada_';
     /**
+     * 必须的配置项
+     */
+    public const REQUIRE_KEYS = [
+        'appKey',
+        'appSecret',
+        'sourceId;',
+        'sourceIdTest',
+        'shopNoTest',
+        'debug',
+        'timeout',
+        'enabled',
+    ];
+    /**
      * 测试环境
      */
     public const BASE_URL_TEST = 'https://newopen.qa.imdada.cn';
