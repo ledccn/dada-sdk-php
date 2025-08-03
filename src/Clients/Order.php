@@ -221,6 +221,23 @@ class Order
     }
 
     /**
+     * 商户审核骑士取消订单
+     * - 在接收到骑士异常上报申请取消订单消息通知后，调用该接口进行审核
+     * - 如审核通过则骑手可以操作取消订单。
+     * - 如商户在一定时间内未确认，系统将兜底确认同意。
+     * @param int $messageType 消息类型（1：骑士取消订单推送消息）
+     * @param string $messageBody 消息内容（json字符串）
+     * @return array
+     */
+    public function confirmMessage(int $messageType, string $messageBody): array
+    {
+        return $this->post('/api/message/confirm', [
+            'messageType' => $messageType,
+            'messageBody' => $messageBody,
+        ]);
+    }
+
+    /**
      * 查询骑士位置
      * - 接单后送达前支持查询骑士实时经纬度信息，送达后返回骑士送达时的经纬度。
      * @param array $orderIds 第三方订单号列表,最多传50个
